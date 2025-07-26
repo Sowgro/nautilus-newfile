@@ -1,4 +1,5 @@
-import os, gi
+import os
+import gi
 gi.require_version('Adw', '1')
 gi.require_version("Gtk", "4.0")
 from gi.repository import Nautilus, GObject, Adw, Gtk, Gio
@@ -6,9 +7,9 @@ from typing import List
 
 @Gtk.Template(filename=os.path.join(__file__, "../new-file-dialog.ui"))
 class NewFileDialog(Adw.Dialog):
-    fileinfo:Gio.FileInfo = None
     __gtype_name__ = "NewFileDialog"
     name_entry: Adw.EntryRow = Gtk.Template.Child()
+    fileinfo: Gio.FileInfo = None
 
     def __init__(self, fileinfo):
         super().__init__()
@@ -21,17 +22,12 @@ class NewFileDialog(Adw.Dialog):
         self.close()
 
 class NautilusNewfile(GObject.GObject, Nautilus.MenuProvider):
-    def show_dialog(self, _, fileinfo):
 
+    def show_dialog(self, _, fileinfo):
         dialog = NewFileDialog(fileinfo)
         dialog.present()
 
     def get_background_items(self, fileinfo: Gio.FileInfo) -> List[Nautilus.MenuItem]:
-
-        menuitem = Nautilus.MenuItem(
-            name="ExampleMenuProvider::Foo2",
-            label="New File...",
-        )
+        menuitem = Nautilus.MenuItem(name="newfile", label="New File...")
         menuitem.connect('activate', self.show_dialog, fileinfo)
-
         return [menuitem,]
