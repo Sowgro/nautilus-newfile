@@ -18,17 +18,15 @@
                   <object class="AdwEntryRow" id="name_entry">
                     <property name="title" translatable="yes">File Name</property>
                     <property name="use-underline">True</property>
-<!--                    <signal name="changed" handler="sg_filename_validator_validate" swapped="no"/>-->
+                    <signal name="changed" handler="on_name_changed" swapped="no"/>
                     <signal name="entry-activated" handler="on_create_clicked" swapped="no"/>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkRevealer">
-<!--                    <property name="reveal-child" bind-source="validator" bind-property="has-feedback"/>-->
+                  <object class="GtkRevealer" id="warning_revealer">
                     <property name="transition-type">crossfade</property>
                     <property name="child">
-                      <object class="GtkLabel">
-<!--                        <property name="label" bind-source="validator" bind-property="feedback-text"/>-->
+                      <object class="GtkLabel" id="warning_label">
                         <property name="margin-top">6</property>
                         <property name="xalign">0</property>
                         <style>
@@ -40,12 +38,11 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="create_button">
                     <property name="label" translatable="yes">_Create</property>
                     <property name="use-underline">True</property>
                     <property name="margin-top">6</property>
                     <property name="halign">center</property>
-<!--                    <property name="sensitive" bind-source="validator" bind-property="passed" bind-flags="sync-create"/>-->
                     <signal name="clicked" handler="on_create_clicked" swapped="no"/>
                     <style>
                       <class name="pill"/>
@@ -60,10 +57,4 @@
       </object>
     </property>
   </template>
-<!--  <object class="NautilusFilenameValidator" id="validator">-->
-<!--    <property name="new-name" bind-source="name_entry" bind-property="text"/>-->
-<!--    <property name="target-is-folder">true</property>-->
-<!--    <signal name="name-accepted" handler="on_name_accepted" swapped="yes"/>-->
-<!--    <signal name="notify::has-feedback" handler="on_feedback_changed" swapped="yes" object="NewFileDialog"/>-->
-<!--  </object>-->
 </interface>
